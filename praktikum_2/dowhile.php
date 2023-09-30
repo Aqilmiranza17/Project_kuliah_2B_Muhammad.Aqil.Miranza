@@ -1,7 +1,7 @@
 <?php
 $i = 2;
 do{
-    echo "$i = $k <br>"
+    echo "$i = $i <br>";
     $i++;
 }while($i < 5);
 ?>

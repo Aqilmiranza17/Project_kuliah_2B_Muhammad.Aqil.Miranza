@@ -6,9 +6,9 @@ $a += 5;
 $b = ($c = 11) + 3;
 echo"Nilai variabel a adalah = $a";
 echo"<br>";
-echo"Nilai variabel a adalah = $b"; 
+echo"Nilai variabel b adalah = $b"; 
 echo"<br>"; 
-echo"Nilai variabel a adalah = $c"; 
+echo"Nilai variabel c adalah = $c"; 
 echo"<br>"; 
 echo"<br>"; 
 ?>
