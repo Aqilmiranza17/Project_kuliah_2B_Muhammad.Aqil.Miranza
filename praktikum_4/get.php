@@ -18,9 +18,10 @@
     
     <!-- proses -->
     <?php
-    echo $_REQUEST['nama']."<br>".echo $_POST['alamat'];
+    echo $_REQUEST['nama']."<br>";
+    echo $_POST['alamat'];
     echo $_REQUEST['nama']+$_POST['alamat'];
     ?>
-    
+
 </body>
 </html>
