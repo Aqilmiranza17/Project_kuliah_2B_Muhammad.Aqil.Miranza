@@ -1,3 +1,14 @@
+<?php
+// session_start();
+if(empty($_SESSION['username_Decafe'])){
+header('location:login');
+}
+
+include'proses/connect.php';
+  $query = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$_SESSION[username_Decafe]'");
+  $hasil = mysqli_fetch_array($query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +33,7 @@
 
 <!-- content -->
     <?php
-      include $page;
+      include "$page";
     ?>
 <!-- end content -->
   </div>

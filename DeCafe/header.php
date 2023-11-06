@@ -4,16 +4,69 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Username
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <?= $hasil['username'] ?>
           </a>
           <ul class="dropdown-menu dropdown-menu-end mt-3" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-key"></i> Ubah Password</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-left"></i> Log out</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ModalUbahPassword"><i
+                  class="bi bi-key"></i> Ubah Password</a></li>
+            <li><a class="dropdown-item" href="logout"><i class="bi bi-box-arrow-left"></i> Log out</a></li>
           </ul>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+<!-- Modal edit-->
+<div class="modal fade" id="ModalUbahPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-fullscreen-md-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="needs-validation" novalidate action="proses/proses_edit_user.php" method="POST">
+          <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-floating mb-3">
+                <input disabled type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                  name="username" value="<?php echo $_SESSION['username_Decafe'] ?>" required>
+                <label for="floatingInput">Username</label>
+                <div class="invalid-feedback">
+                  Masukkan Username
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-floating mb-3">
+                <input disabled type="password" class="form-control" id="floatingPassword" name="passwordlama" required>
+                <label for="floatingInput">Password Lama</label>
+                <div class="invalid-feedback">
+                  Masukkan Password Lama
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" name="input_user_validate" value="12345">Save
+          changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end modal edit-->
