@@ -54,7 +54,7 @@ while ($record = mysqli_fetch_array($query)) {
                   <div class="col-lg-4">
                     <div class="form-floating mb-3">
                       <select class="form-select" aria-label="Default select example" name="level" required>
-                        <option selected hidden value="0">Pilih level user</option>
+                        <option selected hidden value="">Pilih level user</option>
                         <option value="1">Owner/Admin</option>
                         <option value="2">Kasir</option>
                         <option value="3">Pelayan</option>
@@ -211,7 +211,8 @@ while ($record = mysqli_fetch_array($query)) {
                     </div>
                     <div class="col-lg-6">
                       <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        <input <?php echo ($row['username'] == $_SESSION['username_Decafe']) ? 'disabled' : ''; ?>
+                          type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
                           name="username" value="<?php echo $row['username'] ?>" required>
                         <label for="floatingInput">Username</label>
                         <div class="invalid-feedback">
@@ -275,13 +276,13 @@ while ($record = mysqli_fetch_array($query)) {
         </div>
         <!-- end modal edit-->
 
-        <!-- Modal edit Delete-->
+        <!-- Modal Delete-->
         <div class="modal fade" id="ModalDelete<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-md modal-fullscreen-md-down">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data User</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete data user</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -295,9 +296,6 @@ while ($record = mysqli_fetch_array($query)) {
                       echo "Apakah anda ingin menghapus <b>$row[username]</b>";
                     }
                     ?>
-                    Apakah anda ingin menghapus <b>
-                      <?php echo $row['username'] ?>
-                    </b>
                   </div>
               </div>
               <div class="modal-footer">
@@ -309,6 +307,38 @@ while ($record = mysqli_fetch_array($query)) {
           </div>
         </div>
         <!-- end modal Delete-->
+
+        <!-- Modal Reset Password-->
+        <div class="modal fade" id="ModalResetPassword<?php echo $row['id'] ?>" tabindex="-1"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-md modal-fullscreen-md-down">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Reset Password</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form class="needs-validation" novalidate action="proses/proses_reset_password.php" method="POST">
+                  <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
+                  <div class="col-lg-12">
+                    <?php
+                    if ($row['username'] == $_SESSION['username_Decafe']) {
+                      echo "<div class='alert alert-danger'>anda tidak dapat mereset password sendiri</div>";
+                    } else {
+                      echo "Apakah anda yakin mereset password user<b>$row[username]</b> Menjadi password bawaan sistem yaitu <b>password</b>";
+                    }
+                    ?>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" name="input_user_validate" value="12345" <?php echo ($row['username'] == $_SESSION['username_Decafe']) ? 'disabled' : ''; ?>>Reset Password</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modal Reset Password-->
 
         <?php
       }
@@ -369,6 +399,8 @@ while ($record = mysqli_fetch_array($query)) {
                       data-bs-target="#ModalEdit<?php echo $row['id'] ?>"><i class="bi bi-pencil-square"></i></button>
                     <button class="btn btn-danger btn-sm me-1" data-bs-toggle="modal"
                       data-bs-target="#ModalDelete<?php echo $row['id'] ?>"><i class="bi bi-trash"></i></button>
+                    <button class="btn btn-secondary btn-sm me-1" data-bs-toggle="modal"
+                      data-bs-target="#ModalResetPassword<?php echo $row['id'] ?>"><i class="bi bi-key"></i></button>
                   </td>
                 </tr>
                 <?php
@@ -383,28 +415,3 @@ while ($record = mysqli_fetch_array($query)) {
     </div>
   </div>
 </div>
-
-<!-- script js -->
-<script>
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
-  (() => {
-    'use strict'
-
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll('.needs-validation')
-
-    // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-      form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-      }, false)
-    })
-  })()
-</script>
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Script end -->

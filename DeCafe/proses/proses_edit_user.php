@@ -9,13 +9,19 @@ $alamat = (isset($_POST["alamat"])) ? htmlentities($_POST["alamat"]) : "";
 $password = md5('password');
 
 if (!empty($_POST['input_user_validate'])) {
-   echo "Nilai level: " . $level;
-   $query = mysqli_query($conn, "UPDATE tb_user SET Nama='$Nama', username='$username', level='$level', NoHp='$NoHp', alamat='$alamat' WHERE id='$id'");
-   if ($query) {
-      $message = "<script>alert('data berhasil dimasukkan');
+   $select = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username'");
+   if (mysqli_num_rows($select) > 0) {
+      $message = "<script>alert('username yang dimasukkan telah ada');
       window.location='../user'</script>";
    } else {
-      $message = "<script>alert('data gagal dimasukkan');</script>";
+      $query = mysqli_query($conn, "UPDATE tb_user SET Nama='$Nama', username='$username', level='$level', NoHp='$NoHp', alamat='$alamat' WHERE id='$id'");
+      if ($query) {
+         $message = "<script>alert('data berhasil dimasukkan');
+      window.location='../user'</script>";
+      } else {
+         $message = "<script>alert('data gagal dimasukkan');
+      window.location='../user'</script>";
+      }
    }
 }
 echo $message;
