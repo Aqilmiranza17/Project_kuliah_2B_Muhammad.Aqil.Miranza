@@ -51,8 +51,9 @@
             <?= date("Y") ?>
          </p>
       </form>
+      <p>username : admin@abc.com</p>
+      <p>password : password</p>
    </main>
-
    <!-- script js -->
    <script>
       // Example starter JavaScript for disabling form submissions if there are invalid fields
