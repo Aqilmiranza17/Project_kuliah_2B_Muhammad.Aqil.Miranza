@@ -1,0 +1,28 @@
+body, html{
+   background-color: powderblue;
+}
+
+.sidebar{
+   height: 100%;
+}
+
+.sidebar .nav-link{
+margin-top: 6px;
+}
+
+.sidebar .nav-link:hover{
+   background-color: paleturquoise;
+}
+
+.sidebar .nav-link.active{
+   background-color: paleturquoise !important;
+}
+
+.dropdown-menu{
+   margin-top: 0.8rem;
+   padding: 6px;
+}
+
+.dropdown-menu a:hover{
+   background-color: pink;
+}

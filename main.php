@@ -4,9 +4,9 @@ if (empty($_SESSION['username_user'])) {
    header('location:login');
 }
 
-// include 'proses/connect.php';
-// $query = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$_SESSION[username_user]'");
-// $hasil = mysqli_fetch_array($query);
+include 'proses/connect.php';
+$query = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$_SESSION[username_user]'");
+$hasil = mysqli_fetch_array($query);
 ?>
 
 <!DOCTYPE html>
@@ -17,16 +17,23 @@ if (empty($_SESSION['username_user'])) {
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+   <link rel="stylesheet" href="assets/css/style.css">
    <title>Document</title>
 
-   <!-- feather icons -->
-   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+   <!-- js untuk active pada sidebar -->
+   <script>
+      $(document).ready(function () {
+         $(document).on('click', '.nav-link', function () {
+            $('.nav-link').removeClass('active');
+            $(this).addClass('active');
+         });
+      });
+   </script>
+   <!-- js end -->
+
+   <!-- icons -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
-<style>
-   body {
-      background-color: #F7EFE5;
-   }
-</style>
 
 <body>
    <!-- header -->
