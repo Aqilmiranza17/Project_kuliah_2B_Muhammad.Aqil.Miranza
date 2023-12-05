@@ -11,7 +11,7 @@ if (!empty($_POST["submit_validate"])) {
    $hasil = mysqli_fetch_array($query);
    if ($hasil) {
       $_SESSION['username_user'] = $username;
-      // $_SESSION['level_user'] = $hasil['level'];
+      $_SESSION['level_user'] = $hasil['level'];
       // $_SESSION['id_user'] = $hasil['id'];
       header("location:../home");
    } else { ?>

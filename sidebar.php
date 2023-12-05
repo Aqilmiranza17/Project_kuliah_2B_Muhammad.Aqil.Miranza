@@ -77,20 +77,22 @@
                         Kasir
                      </a>
                   </li>
-                  <li>
-                     <a href="user"
-                        class="nav-link <?= ((isset($_GET['x']) && $_GET['x'] == 'user') || !isset($_GET['x'])) ? 'active' : 'link-dark'; ?> link-body-emphasis">
-                        <i class="bi bi-people"></i>
-                        User
-                     </a>
-                  </li>
-                  <li>
-                     <a href="report"
-                        class="nav-link <?= ((isset($_GET['x']) && $_GET['x'] == 'report') || !isset($_GET['x'])) ? 'active' : 'link-dark'; ?> link-body-emphasis">
-                        <i class="bi bi-bar-chart"></i>
-                        Report
-                     </a>
-                  </li>
+                  <?php if ($hasil['level'] == 1) { ?>
+                     <li>
+                        <a href="user"
+                           class="nav-link <?= ((isset($_GET['x']) && $_GET['x'] == 'user') || !isset($_GET['x'])) ? 'active' : 'link-dark'; ?> link-body-emphasis">
+                           <i class="bi bi-people"></i>
+                           User
+                        </a>
+                     </li>
+                     <li>
+                        <a href="report"
+                           class="nav-link <?= ((isset($_GET['x']) && $_GET['x'] == 'report') || !isset($_GET['x'])) ? 'active' : 'link-dark'; ?> link-body-emphasis">
+                           <i class="bi bi-bar-chart"></i>
+                           Report
+                        </a>
+                     </li>
+                  <?php } ?>
                </ul>
 
             </div>
