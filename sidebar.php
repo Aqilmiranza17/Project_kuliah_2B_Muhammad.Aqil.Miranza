@@ -52,9 +52,11 @@
                   <li>
                      <a href="home"
                         class="nav-link <?= ((isset($_GET['x']) && $_GET['x'] == 'home') || !isset($_GET['x'])) ? 'active' : 'link-dark'; ?> link-body-emphasis">
-                        <i class="bi bi-house"></i>
+                        <i class="bi bi-house" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);"
+                           aria-hidden="true"></i>
                         Home
                      </a>
+
                   </li>
                   <li>
                      <a href="obat"

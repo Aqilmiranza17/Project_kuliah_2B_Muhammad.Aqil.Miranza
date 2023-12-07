@@ -1,6 +1,6 @@
 <nav class=" navbar navbar-expand-lg bg-body-tertiary d-flex">
    <div class="container-fluid py-2">
-      <a class="h4 navbar-brand mx-5" href="."><i class="bi bi-prescription2"></i> Inventory Apotek</a>
+      <a class="h4 navbar-brand mx-5" href="home"><i class="bi bi-prescription2"></i> Inventory Apotek</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>

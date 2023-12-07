@@ -12,10 +12,12 @@ margin-top: 6px;
 
 .sidebar .nav-link:hover{
    background-color: paleturquoise;
+   color: black !important;
 }
 
 .sidebar .nav-link.active{
    background-color: paleturquoise !important;
+   color: black !important;
 }
 
 .dropdown-menu{
