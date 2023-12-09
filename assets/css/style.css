@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+
 body, html{
    background-color: powderblue;
+}
+
+header{
+   font-family: 'Poppins', sans-serif;
 }
 
 .sidebar{
@@ -27,4 +33,16 @@ margin-top: 6px;
 
 .dropdown-menu a:hover{
    background-color: pink;
+   background-color: p;
+}
+
+.btn-user{
+   background-color: powderblue!important;
+   border: 0;
+   border-radius: 10px;
+}
+
+.btn-user:hover{
+   background-color: rgb(123, 236, 236)!important;
+   box-shadow: 4px 4px;
 }

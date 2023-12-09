@@ -12,7 +12,9 @@ while ($record = mysqli_fetch_array($query)) {
          <h5 class="card-title">Halaman User</h5>
          <div class="row">
             <div class="col d-flex justify-content-start mt-3">
-               <div class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalTambahUser">Tambah</div>
+               <div class="btn btn-user" data-bs-toggle="modal" data-bs-target="#ModalTambahUser"><i
+                     class="bi bi-person-plus-fill"></i> Tambah
+               </div>
             </div>
          </div>
 
@@ -22,65 +24,332 @@ while ($record = mysqli_fetch_array($query)) {
             <div class="modal-dialog modal-xl modal-fullscreen-md-down">
                <div class="modal-content">
                   <div class="modal-header">
-                     <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-fill-add"></i> Tambah
-                        User
-                     </h1>
+                     <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah User</h1>
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                     ...
+                     <form class="needs-validation" novalidate action="proses/proses_input_user.php" method="POST">
+                        <div class="row">
+                           <div class="col-lg-6">
+                              <div class="form-floating mb-3">
+                                 <input type="text" class="form-control" id="floatingInput" placeholder="Your Name"
+                                    name="nama" required>
+                                 <label for="floatingInput">Nama</label>
+                                 <div class="invalid-feedback">
+                                    Masukkan Password
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="form-floating mb-3">
+                                 <input type="email" class="form-control" id="floatingInput"
+                                    placeholder="name@example.com" name="username" required>
+                                 <label for="floatingInput">Username</label>
+                                 <div class="invalid-feedback">
+                                    Masukkan Username
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-lg-4">
+                              <div class="form-floating mb-3">
+                                 <select class="form-select" aria-label="Default select example" name="level" required>
+                                    <option selected hidden value="">Pilih level user</option>
+                                    <option value="1">Owner/Admin</option>
+                                    <option value="2">Karyawan</option>
+                                 </select>
+                                 <label for="floatingInput">Level User</label>
+                                 <div class="invalid-feedback">
+                                    Pilih Level User
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-8">
+                              <div class="form-floating mb-3">
+                                 <input type="number" class="form-control" id="floatingInput" placeholder="08xxxxx"
+                                    name="nohp">
+                                 <label for="floatingInput">No Hp</label>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-lg-12">
+                              <div class="form-floating mb-3">
+                                 <input type="password" class="form-control" id="floatingInput" placeholder="Password"
+                                    value="12345" name="password" disabled>
+                                 <label for="floatingPassword">Password</label>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="form-floating">
+                           <textarea class="form-control" id="" style="height:100px" name="alamat"></textarea>
+                           <label for="floatingInput">Alamat</label>
+                        </div>
                   </div>
                   <div class="modal-footer">
                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                     <button type="button" class="btn btn-primary">Save changes</button>
+                     <button type="submit" class="btn btn-primary" name="input_user_validate" value="12345">Save
+                        changes</button>
+                     </form>
                   </div>
                </div>
             </div>
          </div>
          <!-- end modal tambah user baru-->
 
-         <!-- modal view profile-->
-         <div class="modal fade" id="ModalView" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-fullscreen-md-down">
-               <div class="modal-content">
-                  <div class="modal-header">
-                     <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-vcard-fill"></i> Data
-                        User
-                     </h1>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                     ...
-                  </div>
-                  <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                     <button type="button" class="btn btn-primary">Save changes</button>
+         <?php foreach ($result as $row) { ?>
+            <!-- modal view profile-->
+            <div class="modal fade" id="ModalView<?php echo $row['id'] ?>" tabindex="-1"
+               aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog modal-xl modal-fullscreen-md-down">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-vcard-fill"></i> Data
+                           User
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     </div>
+                     <div class="modal-body">
+                        <form class="needs-validation" novalidate action="proses/proses_input_user.php" method="POST">
+                           <div class="row">
+                              <div class="col-lg-6">
+                                 <div class="form-floating mb-3">
+                                    <input disabled type="text" class="form-control" id="floatingInput"
+                                       placeholder="Your Name" name="nama" value="<?php echo $row['nama'] ?>">
+                                    <label for="floatingInput">Nama</label>
+                                    <div class="invalid-feedback">
+                                       Masukkan Password
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-6">
+                                 <div class="form-floating mb-3">
+                                    <input disabled type="email" class="form-control" id="floatingInput"
+                                       placeholder="name@example.com" name="username"
+                                       value="<?php echo $row['username'] ?>">
+                                    <label for="floatingInput">Username</label>
+                                    <div class="invalid-feedback">
+                                       Masukkan Username
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-lg-4">
+                                 <div class="form-floating mb-3">
+                                    <select class="form-select" aria-label="Default select example" name="level" id=""
+                                       disabled>
+                                       <?php
+                                       $data = array("Owner/admin", "Karyawan");
+                                       foreach ($data as $key => $value) {
+                                          if ($row['level'] == $key + 1) {
+                                             echo "<option selected value=" . ($key + 1) . ">$value</option>";
+                                          } else {
+                                             echo "<option value=" . ($key + 1) . ">$value</option>";
+                                          }
+                                       }
+                                       ?>
+                                    </select>
+                                    <label for="floatingInput">Level User</label>
+                                    <div class="invalid-feedback">
+                                       Pilih Level User
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-8">
+                                 <div class="form-floating mb-3">
+                                    <input disabled type="number" class="form-control" id="floatingInput"
+                                       placeholder="08xxxxx" name="nohp" value="<?= $row['nohp']; ?>">
+                                    <label for="floatingInput">No Hp</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-lg-12">
+                                 <div class="form-floating mb-3">
+                                    <input disabled type="password" class="form-control" id="floatingInput"
+                                       placeholder="Password" value="12345" name="password" disabled>
+                                    <label for="floatingPassword">Password</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="form-floating">
+                              <textarea disabled class="form-control" id="" style="height:100px"
+                                 name="alamat"><?php echo $row['alamat'] ?></textarea>
+                              <label for="floatingInput">Alamat</label>
+                           </div>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </form>
+                     </div>
                   </div>
                </div>
             </div>
-         </div>
-         <!-- end modal view profile--->
+            <!-- end modal view profile--->
 
          <!-- modal edit profile-->
-         <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-fullscreen-md-down">
-               <div class="modal-content">
-                  <div class="modal-header">
-                     <h1 class="modal-title fs-5" id="exampleModalLabel"> <i class="bi bi-person-fill-gear"></i> Edit
-                        User</h1>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                     ...
-                  </div>
-                  <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                     <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="modal fade" id="ModalEdit<?= $row['id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
+               aria-hidden="true">
+               <div class="modal-dialog modal-xl modal-fullscreen-md-down">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"> <i class="bi bi-person-fill-gear"></i> Edit
+                           User</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     </div>
+                     <div class="modal-body">
+                        <form class="needs-validation" novalidate action="proses/proses_edit_user.php" method="POST">
+                           <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
+                           <div class="row">
+                              <div class="col-lg-6">
+                                 <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="Your Name"
+                                       name="nama" required value="<?php echo $row['nama'] ?>">
+                                    <label for="floatingInput">Nama</label>
+                                    <div class="invalid-feedback">
+                                       Masukkan Password
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-6">
+                                 <div class="form-floating mb-3">
+                                    <input <?php echo ($row['username'] == $_SESSION['username_user']) ? 'disabled' : ''; ?>
+                                       type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                                       name="username" value="<?php echo $row['username'] ?>" required>
+                                    <label for="floatingInput">Username</label>
+                                    <div class="invalid-feedback">
+                                       Masukkan Username
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-lg-4">
+                                 <div class="form-floating mb-3">
+                                    <select class="form-select" aria-label="Default select example" name="level" id=""
+                                       required>
+                                       <?php
+                                       $data = array("Owner/admin", "Karyawan");
+                                       foreach ($data as $key => $value) {
+                                          if ($row['level'] == $key + 1) {
+                                             echo "<option selected value=" . ($key + 1) . ">$value</option>";
+                                          } else {
+                                             echo "<option value=" . ($key + 1) . ">$value</option>";
+                                          }
+                                       }
+                                       ?>
+                                    </select>
+                                    <label for="floatingInput">Level User</label>
+                                    <div class="invalid-feedback">
+                                       Pilih Level User
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-8">
+                                 <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" id="floatingInput" placeholder="08xxxxx"
+                                       name="nohp" value="<?php echo $row['nohp'] ?>">
+                                    <label for="floatingInput">No Hp</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-lg-12">
+                                 <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="floatingInput" placeholder="Password"
+                                       value="12345" name="password" required>
+                                    <label for="floatingPassword">Password</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="form-floating">
+                              <textarea class="form-control" id="" style="height:100px"
+                                 name="alamat"><?php echo $row['alamat'] ?></textarea>
+                              <label for="floatingInput">Alamat</label>
+                           </div>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="input_user_validate" value="12345">Save
+                           changes</button>
+                        </form>
+                     </div>
                   </div>
                </div>
             </div>
-         </div>
-         <!-- end modal edit profile--->
+            <!-- end modal edit profile--->
+
+         <!-- modal reset password -->
+            <div class="modal fade" id="ModalDelete<?php echo $row['id'] ?>" tabindex="-1"
+               aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog modal-xl modal-fullscreen-md-down">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"> <i class="bi bi-person-fill-x"></i> Hapus User
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     </div>
+                     <div class="modal-body">
+                        <form class="needs-validation" novalidate action="proses/proses_delete_user.php" method="POST">
+                           <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
+                           <div class="col-lg-12">
+                              <?php
+                              if ($row['username'] == $_SESSION['username_user']) {
+                                 echo "<div class='alert alert-danger'>anda tidak dapat menghapus akun sendiri</div>";
+                              } else {
+                                 echo "Apakah anda ingin menghapus <b>$row[username]</b>";
+                              }
+                              ?>
+                           </div>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger" name="input_user_validate" value="12345" <?php echo ($row['username'] == $_SESSION['username_user']) ? 'disabled' : ''; ?>> Hapus</button>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- end modal hapus profile--->
+
+         <!-- modal reset password -->
+            <div class="modal fade" id="ModalResetPassword<?php echo $row['id'] ?>" tabindex="-1"
+               aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog modal-md modal-fullscreen-md-down">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"> <i class="bi bi-key"></i> Reset password</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     </div>
+                     <div class="modal-body">
+                        <form class="needs-validation" novalidate action="proses/proses_reset_password.php" method="POST">
+                           <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
+                           <div class="col-lg-12">
+                              <?php
+                              if ($row['username'] == $_SESSION['username_user']) {
+                                 echo "<div class='alert alert-danger'>anda tidak dapat mereset password sendiri</div>";
+                              } else {
+                                 echo "Apakah anda ingin mereset password user <b>$row[username]</b> Menjadi <b>password</b>";
+                              }
+                              ?>
+                           </div>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" name="input_user_validate" value="12345" <?php echo ($row['username'] == $_SESSION['username_user']) ? 'disabled' : ''; ?>>Reset</button>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- end modal reset password--->
+
+
+         <?php
+         }
+         ?>
 
          <hr>
          <?php
@@ -116,17 +385,27 @@ while ($record = mysqli_fetch_array($query)) {
                         <?= $row['username'] ?>
                      </td>
                      <td>
-                        <?= $row['level'] ?>
+                        <?php
+                        if ($row['level'] == '1') {
+                           echo 'Admin ';
+                        } elseif ($row['level'] == '2') {
+                           echo 'Karyawan';
+                        }
+                        ?>
                      </td>
                      <td>
                         <?= $row['nohp'] ?>
                      </td>
                      <td class="d-flex">
-                        <button class="btn btn-info btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalView"><i
-                              class="bi bi-eyeglasses"></i></button>
+                        <button class="btn btn-info btn-sm me-1" data-bs-toggle="modal"
+                           data-bs-target="#ModalView<?php echo $row['id'] ?>"><i class="bi bi-eyeglasses"></i></button>
                         <button class="btn btn-warning btn-sm me-1" data-bs-toggle="modal"
-                           data-bs-target="#ModalEdit"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-danger btn-sm me-1"><i class="bi bi-trash2"></i></button>
+                           data-bs-target="#ModalEdit<?= $row['id'] ?>"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-danger btn-sm me-1" data-bs-toggle="modal"
+                           data-bs-target="#ModalDelete<?php echo $row['id'] ?>"><i class="bi bi-trash2"></i></button>
+                        <button class="btn btn-secondary btn-sm me-1" data-bs-toggle="modal"
+                           data-bs-target="#ModalResetPassword<?php echo $row['id'] ?>"><i
+                              class="bi bi-key"></i></button>
                      </td>
                   </tr>
                   <tr>

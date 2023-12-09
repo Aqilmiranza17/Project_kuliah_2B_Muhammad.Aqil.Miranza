@@ -5,6 +5,7 @@ Aplikasi berbasis Web yang mana digunakan untuk mengatur barang, dan juga mengat
    -Melihat laporan
    -Menambah/mengubah/menghapus user
    -Menambah/mengubah/menghapus daftar menu dan harga
+   
 ## Karyawan (2)
    -Melihat harga dan total harga pesananan
    -Konfirmasi pembayaran
@@ -17,6 +18,7 @@ Aplikasi berbasis Web yang mana digunakan untuk mengatur barang, dan juga mengat
    -User 
    -Obat
    -Obat
+
 ## Karyawan (2)
    -Kasir
    -Obat
