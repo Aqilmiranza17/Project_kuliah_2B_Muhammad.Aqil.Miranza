@@ -1,13 +1,13 @@
 <?php
 include "proses/connect.php";
-$query = mysqli_query($conn, "SELECT * FROM tb_user");
+$query = mysqli_query($conn, "SELECT * FROM tb_user ORDER BY level");
 while ($record = mysqli_fetch_array($query)) {
    $result[] = $record;
 }
 ?>
 
-<div class="col-lg-10 d-flex align-items-start justify-content-center mt-3">
-   <div class="card w-75 mb-3 border-0">
+<div class="col-lg-10 d-flex align-items-start justify-content-center mt-3 rounded-4">
+   <div class="card w-75 mb-3 rounded-4">
       <div class="card-body">
          <h5 class="card-title">Halaman User</h5>
          <div class="row">

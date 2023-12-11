@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
 
 body, html{
-   background-color: powderblue;
+   background-color: papayawhip;
 }
 
 header{
@@ -44,5 +44,16 @@ margin-top: 6px;
 
 .btn-user:hover{
    background-color: rgb(123, 236, 236)!important;
+   box-shadow: 4px 4px;
+}
+
+.btn-obat{
+   background-color: pink!important;
+   border: 0;
+   border-radius: 10px;
+}
+
+.btn-obat:hover{
+   background-color: rgb(237, 159, 172)!important;
    box-shadow: 4px 4px;
 }
