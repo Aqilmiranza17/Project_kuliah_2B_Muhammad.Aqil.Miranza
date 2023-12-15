@@ -6,6 +6,9 @@ if (isset($_GET['x']) && $_GET['x'] == 'home') {
 } elseif (isset($_GET['x']) && $_GET['x'] == 'obat') {
    $page = "obat.php";
    include "main.php";
+} elseif (isset($_GET['x']) && $_GET['x'] == 'jenis') {
+   $page = "jenis.php";
+   include "main.php";
 } elseif (isset($_GET['x']) && $_GET['x'] == 'kasir') {
    $page = "kasir.php";
    include "main.php";

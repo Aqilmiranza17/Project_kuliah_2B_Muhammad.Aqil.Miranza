@@ -14,12 +14,16 @@ if (!empty($_POST['edit_obat'])) {
       $message = "<script>alert('obat yang dimasukkan telah ada');
       window.location='../obat'</script>";
    } else {
-      $query = mysqli_query($conn, "UPDATE tb_daftar_obat SET nama_obat='$nama_obat', golongan='$golongan_obat', kategori='$kategori', jenis='$jenis', harga='$harga', stok='$stok' WHERE id = '$id'");
+      $query = mysqli_query($conn,
+         "UPDATE tb_daftar_obat 
+      SET nama_obat='$nama_obat', golongan='$golongan_obat', kategori='$kategori', jenis='$jenis', harga='$harga', stok='$stok'
+      WHERE id='$id'
+      ");
       if ($query) {
          $message = "<script>alert('data berhasil di edit');
          window.location='../obat'</script>";
       } else {
-         $message = "<script>alert('data berhasil di edit');
+         $message = "<script>alert('data gagal di edit');
          window.location='../obat'</script>";
       }
    }

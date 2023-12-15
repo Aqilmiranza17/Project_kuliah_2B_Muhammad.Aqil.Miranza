@@ -4,7 +4,7 @@ $query = mysqli_query($conn, "SELECT * FROM tb_user WHERE username='$_SESSION[us
 $records = mysqli_fetch_array($query);
 ?>
 
-<header>
+<header class="sticky-lg-top">
    <nav class=" navbar navbar-expand-lg bg-body-tertiary d-flex">
       <div class="container-fluid py-2">
          <a class="h4 navbar-brand mx-5 headerbutton" href="home">

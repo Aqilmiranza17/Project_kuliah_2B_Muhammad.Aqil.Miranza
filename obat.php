@@ -24,6 +24,12 @@ FROM tb_golongan
                      class="bi bi-prescription2"></i> Tambah Obat
                </div>
             </div>
+            <div class="col d-flex justify-content-end mt-3">
+               <form class="d-flex" role="search" action="proses/cari_obat.php" method="GET">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Cari</button>
+               </form>
+            </div>
          </div>
 
          <!-- modal tambah obat-->
@@ -249,6 +255,7 @@ FROM tb_golongan
                         </div>
                         <div class="modal-body">
                            <form class="needs-validation" novalidate action="proses/proses_edit_obat.php" method="POST">
+                              <input type="hidden" name="id" value="<?= $row['id'] ?>">
                               <div class="row">
                                  <div class="col-lg-6">
                                     <div class="form-floating mb-3">

@@ -59,17 +59,17 @@
 
                   </li>
                   <li>
+                     <a href="jenis"
+                        class="nav-link <?= ((isset($_GET['x']) && $_GET['x'] == 'jenis') || !isset($_GET['x'])) ? 'active' : 'link-dark'; ?> link-body-emphasis">
+                        <i class="bi bi-file-medical"></i>
+                        Jenis Obat
+                     </a>
+                  </li>
+                  <li>
                      <a href="obat"
                         class="nav-link <?= ((isset($_GET['x']) && $_GET['x'] == 'obat') || !isset($_GET['x'])) ? 'active' : 'link-dark'; ?> link-body-emphasis">
                         <i class="bi bi-capsule"></i>
                         Daftar Obat
-                     </a>
-                  </li>
-                  <li>
-                     <a href="#"
-                        class="nav-link <?= ((isset($_GET['x']) && $_GET['x'] == '') || !isset($_GET['x'])) ? 'active' : 'link-dark'; ?> link-body-emphasis">
-                        <i class="bi bi-file-medical"></i>
-                        Kategori Obat
                      </a>
                   </li>
                   <li>
