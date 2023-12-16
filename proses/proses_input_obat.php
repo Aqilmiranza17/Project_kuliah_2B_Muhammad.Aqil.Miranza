@@ -2,8 +2,8 @@
 include "connect.php";
 $nama_obat = (isset($_POST["nama_obat"])) ? htmlentities($_POST["nama_obat"]) : "";
 $golongan_obat = (isset($_POST["golongan_obat"])) ? htmlentities($_POST["golongan_obat"]) : "";
-$kategori = (isset($_POST["kategori"])) ? htmlentities($_POST["kategori"]) : "";
-$jenis = (isset($_POST["jenis"])) ? htmlentities($_POST["jenis"]) : "";
+$kategori_obat = (isset($_POST["kategori_obat"])) ? htmlentities($_POST["kategori_obat"]) : "";
+$jenis_obat = (isset($_POST["jenis_obat"])) ? htmlentities($_POST["jenis_obat"]) : "";
 $harga = (isset($_POST["harga"])) ? htmlentities($_POST["harga"]) : "";
 $stok = (isset($_POST["stok"])) ? htmlentities($_POST["stok"]) : "";
 
@@ -13,12 +13,12 @@ if (!empty($_POST['input_obat'])) {
       $message = "<script>alert('obat yang dimasukkan telah ada');
       window.location='../obat'</script>";
    } else {
-      $query = mysqli_query($conn, "INSERT INTO tb_daftar_obat(nama_obat, golongan, kategori, jenis, harga, stok) values ('$nama_obat', '$golongan_obat', '$kategori', '$jenis', '$harga', '$stok')");
+      $query = mysqli_query($conn, "INSERT INTO tb_daftar_obat(nama_obat, golongan, kategori, jenis, harga, stok) values ('$nama_obat', '$golongan_obat', '$kategori_obat', '$jenis_obat', '$harga', '$stok')");
       if ($query) {
-         $message = "<script>alert('data berhasil diupdate');
+         $message = "<script>alert('data Obat berhasil diinput');
          window.location='../obat'</script>";
       } else {
-         $message = "<script>alert('data gagal diupdate');
+         $message = "<script>alert('data Obat gagal diinput');
          window.location='../obat'</script>";
       }
    }
