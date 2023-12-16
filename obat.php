@@ -2,7 +2,9 @@
 include "proses/connect.php";
 $query = mysqli_query($conn, "SELECT * 
 FROM tb_daftar_obat 
-LEFT JOIN tb_golongan ON tb_golongan.id_golongan = tb_daftar_obat.golongan
+JOIN tb_golongan ON tb_golongan.id_golongan = tb_daftar_obat.golongan
+JOIN tb_jenis_obat ON tb_jenis_obat.id_jenis = tb_daftar_obat.jenis
+JOIN tb_kategori_obat ON tb_kategori_obat.id_kategori = tb_daftar_obat.kategori
 ");
 while ($record = mysqli_fetch_array($query)) {
    $result[] = $record;
@@ -12,12 +14,20 @@ $select_golongan = mysqli_query($conn,
    "SELECT id_golongan, golongan_obat 
 FROM tb_golongan
 ");
+
+$select_jenis_obat = mysqli_query($conn,
+   "SELECT id_jenis, jenis_obat
+FROM tb_jenis_obat");
+
+$select_kat_obat = mysqli_query($conn,
+   "SELECT id_kategori, kategori_obat
+FROM tb_kategori_obat");
 ?>
 
 <div class="col-lg-10 d-flex align-items-start justify-content-center mt-3 rounded-4">
    <div class="card w-75 mb-3 rounded-4">
       <div class="card-body">
-         <h5 class="card-title">Halaman Obat</h5>
+         <h5 class="card-title">Daftar Obat</h5>
          <div class="row">
             <div class="col d-flex justify-content-start mt-3">
                <div class="btn btn-obat" data-bs-toggle="modal" data-bs-target="#ModalTambahObat"><i
@@ -45,23 +55,13 @@ FROM tb_golongan
                   <div class="modal-body">
                      <form class="needs-validation" novalidate action="proses/proses_input_obat.php" method="POST">
                         <div class="row">
-                           <div class="col-lg-6">
+                           <div class="col-lg-12">
                               <div class="form-floating mb-3">
                                  <input type="text" class="form-control" id="floatingInput" placeholder="Your Name"
                                     name="nama_obat" required>
                                  <label for="floatingInput">Nama Obat</label>
                                  <div class="invalid-feedback">
                                     Masukkan Nama Obat
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-6">
-                              <div class="form-floating mb-3">
-                                 <input type="text" class="form-control" id="floatingInput" placeholder=""
-                                    name="kategori" required>
-                                 <label for="floatingInput">Kategori</label>
-                                 <div class="invalid-feedback">
-                                    Masukkan Kategori
                                  </div>
                               </div>
                            </div>
@@ -72,7 +72,6 @@ FROM tb_golongan
                                  <select class="form-select" aria-label="Default select example" name="golongan_obat"
                                     required>
                                     <option selected hidden value="">Golongan </option>
-                                    <option value="">Golongan Obat</option>
                                     <?php
                                     foreach ($select_golongan as $value) {
                                        echo "<option value=" . $value['id_golongan'] . "> $value[golongan_obat] </option>";
@@ -85,10 +84,41 @@ FROM tb_golongan
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-8">
+                           <div class="col-lg-4">
                               <div class="form-floating mb-3">
-                                 <input type="text" class="form-control" id="floatingInput" placeholder="" name="jenis">
-                                 <label for="floatingInput">Jenis</label>
+                                 <div class="form-floating mb-3">
+                                    <select class="form-select" aria-label="Default select example" name="jenis_obat"
+                                       required>
+                                       <option selected hidden value="">Jenis Obat </option>
+                                       <option value="" selected hidden>Jenis Obat</option>
+                                       <?php
+                                       foreach ($select_jenis_obat as $value) {
+                                          echo "<option value=" . $value['id_jenis'] . "> $value[jenis_obat] </option>";
+                                       }
+                                       ?>
+                                    </select>
+                                    <label for="floatingInput">Jenis Obat</label>
+                                    <div class="invalid-feedback">
+                                       Masukkan Jenis Obat
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-4">
+                              <div class="form-floating mb-3">
+                                 <select class="form-select" aria-label="Default select example" name="kat_menu"
+                                    required>
+                                    <option value="" selected hidden>Pilih Kategori Obat</option>
+                                    <?php
+                                    foreach ($select_kat_obat as $value) {
+                                       echo "<option value=" . $value['id_kategori'] . "> $value[kategori_obat] </option>";
+                                    }
+                                    ?>
+                                 </select>
+                                 <label for="floatingInput">Kategori Makanan atau Minuman</label>
+                                 <div class="invalid-feedback">
+                                    Pilih Kategori Makanan atau Minuman
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -413,10 +443,10 @@ FROM tb_golongan
                         <?= $row['golongan_obat'] ?>
                      </td>
                      <td>
-                        <?= $row['kategori'] ?>
+                        <?= $row['kategori_obat'] ?>
                      </td>
                      <td>
-                        <?= $row['jenis'] ?>
+                        <?= $row['jenis_obat'] ?>
                      </td>
                      <td>
                         <?= $row['harga'] ?>

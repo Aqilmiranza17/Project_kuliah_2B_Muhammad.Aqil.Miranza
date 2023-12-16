@@ -9,7 +9,7 @@ while ($record = mysqli_fetch_array($query)) {
 <div class="col-lg-10 d-flex align-items-start justify-content-center mt-3 rounded-4">
    <div class="card w-75 mb-3 rounded-4">
       <div class="card-body">
-         <h5 class="card-title">Halaman User</h5>
+         <h5 class="card-title">User</h5>
          <div class="row">
             <div class="col d-flex justify-content-start mt-3">
                <div class="btn btn-user" data-bs-toggle="modal" data-bs-target="#ModalTambahUser"><i
