@@ -17,7 +17,7 @@ FROM tb_jenis_obat
          <h5 class="card-title">Kategori Obat/produk</h5>
          <div class="row">
             <div class="col d-flex justify-content-start mt-3">
-               <div class="btn btn-user" data-bs-toggle="modal" data-bs-target="#ModalTambahUser"><i
+               <div class="btn btn-kategori" data-bs-toggle="modal" data-bs-target="#ModalTambahUser"><i
                      class="bi bi-prescription"></i> Tambah Kategori Obat
                </div>
             </div>
@@ -175,7 +175,7 @@ FROM tb_jenis_obat
          } else { ?>
 
          <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover" id="example">
                <thead>
                   <tr class="">
                      <th scope="col">No</th>
@@ -208,8 +208,7 @@ FROM tb_jenis_obat
                               class="bi bi-trash"></i></button>
                      </td>
                   </tr>
-                  <tr>
-                     <?php } ?>
+                  <?php } ?>
                </tbody>
             </table>
          </div>

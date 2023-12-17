@@ -34,12 +34,6 @@ FROM tb_kategori_obat");
                      class="bi bi-prescription2"></i> Tambah Obat
                </div>
             </div>
-            <!-- <div class="col d-flex justify-content-end mt-3">
-               <form class="d-flex" role="search" action="proses/cari_obat.php" method="GET">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Cari</button>
-               </form>
-            </div> -->
          </div>
 
          <!-- modal tambah obat-->
@@ -404,9 +398,9 @@ FROM tb_kategori_obat");
             ?>
          <hr>
          <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover" id="example">
                <thead>
-                  <tr class="">
+                  <tr>
                      <th scope=" col">No</th>
                      <th scope="col">Nama Obat</th>
                      <th scope="col">Golongan</th>
@@ -457,8 +451,7 @@ FROM tb_kategori_obat");
                         </div>
                      </td>
                   </tr>
-                  <tr>
-                     <?php } ?>
+                  <?php } ?>
                </tbody>
             </table>
          </div>

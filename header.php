@@ -8,7 +8,7 @@ $records = mysqli_fetch_array($query);
    <nav class=" navbar navbar-expand-lg bg-body-tertiary d-flex">
       <div class="container-fluid py-2">
          <a class="h4 navbar-brand mx-5 headerbutton" href="home">
-            <div class="d-flex align-items-centerx">
+            <div class="d-flex align-items-center justify-content-center">
                <i class="bi bi-prescription2 m-2"></i>
                <div class="row">
                   <div class="col-12">Inventory</div>
