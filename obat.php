@@ -5,6 +5,7 @@ FROM tb_daftar_obat
 JOIN tb_golongan ON tb_golongan.id_golongan = tb_daftar_obat.golongan
 JOIN tb_jenis_obat ON tb_jenis_obat.id_jenis = tb_daftar_obat.jenis
 JOIN tb_kategori_obat ON tb_kategori_obat.id_kategori = tb_daftar_obat.kategori
+ORDER BY nama_obat ASC
 ");
 while ($record = mysqli_fetch_array($query)) {
    $result[] = $record;

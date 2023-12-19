@@ -69,7 +69,12 @@ $hasil = mysqli_fetch_array($query);
    <!-- js for data tables function -->
    <script>
       $(document).ready(function () {
-         $('#example').DataTable();
+         $('#example').DataTable({
+            lengthMenu: [
+               [5, 15, 50, -1],
+               [5, 15, 50, 'All']
+            ]
+         });
       });
    </script>
    <!-- js for data tables function -->
