@@ -162,6 +162,57 @@ while ($record = mysqli_fetch_array($query)) {
                         while ($row2 = mysqli_fetch_array($kueri2)) {
                            ?>
 
+                           <!-- Modal edit menu-->
+                           <div class="modal fade" id="ModalEdit<?php echo $row2['id_list_order'] ?>" tabindex="-1"
+                              aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg modal-fullscreen-md-down">
+                                 <div class="modal-content">
+                                    <div class="modal-header">
+                                       <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Item
+                                       </h1>
+                                       <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                          aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                       <form class="needs-validation" novalidate action="proses/proses_edit_list_item.php"
+                                          method="POST">
+                                          <input type="hidden" name="id_list_order" value="<?= $row['id_list_order'] ?>">
+                                          <input type="hidden" name="idobat" value="<?php echo $row2['list_obat'] ?>">
+                                                <div class=" row">
+                                                   <div class="col-lg-6">
+                                                      <div class="form-floating mb-3">
+                                                         <input type="text" class="form-control" id="floatingInput"
+                                                            placeholder="nama obat" name="idobat"
+                                                            value="<?= $row2['nama_obat'] ?>" disabled>
+                                                   <label for="floatingInput">Nama obat</label>
+                                                   <div class="invalid-feedback">
+                                                      Masukkan nama obat
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-lg-6">
+                                                <div class="form-floating mb-3">
+                                                   <input type="number" class="form-control" id="floatingInput"
+                                                      placeholder="Jumlah Obat" name="jumlah" required>
+                                                   <label for="floatingInput">Jumlah</label>
+                                                   <div class="invalid-feedback">
+                                                      Masukkan Jumlah
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                       <button type="submit" class="btn btn-primary" name="edit_list_item" value="12345">Save
+                                          changes</button>
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- end modal edit menu-->
+
                            <!-- modal delete -->
                            <div class="modal fade" id="ModalDelete<?php echo $row2['id_list_order'] ?>" tabindex="-1"
                               aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -173,12 +224,13 @@ while ($record = mysqli_fetch_array($query)) {
                                           aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                       <form class="needs-validation" novalidate action="proses/proses_delete_obat.php"
+                                       <form class="needs-validation" novalidate action="proses/proses_delete_list_item.php"
                                           method="POST">
-                                          <input type="hidden" name="id" value="<?php echo $row2['id_list_order'] ?>">
+                                          <input type="hidden" name="id_list_order"
+                                             value="<?php echo $row2['id_list_order'] ?>">
                                           <input type="hidden" name="idobat" value="<?php echo $row2['list_obat'] ?>">
                                           <div class="col-lg-12">
-                                             Apakah anda ingin menghapus Obat
+                                             Apakah anda ingin menghapus Item
                                              <b>
                                                 <?= $row2['nama_obat'] ?>
                                              </b>
@@ -186,7 +238,7 @@ while ($record = mysqli_fetch_array($query)) {
                                     </div>
                                     <div class="modal-footer">
                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                       <button type="submit" class="btn btn-danger" name="hapus_obat"
+                                       <button type="submit" class="btn btn-danger" name="hapus_item_kasir"
                                           value="12345">Hapus</button>
                                        </form>
                                     </div>
@@ -213,14 +265,12 @@ while ($record = mysqli_fetch_array($query)) {
                               <!-- tombol aksi -->
                               <td>
                                  <div class="d-flex">
-                                    <button
-                                       class="<?php echo (!empty($row2['id_bayar'])) ? "btn btn-secondary btn-sm me-1 disabled" : "btn-warning btn-sm me-1"; ?>"
-                                       data-bs-toggle="modal"
+                                    <button class="btn btn-warning btn-sm me-1" data-bs-toggle="modal"
                                        data-bs-target="#ModalEdit<?php echo $row2['id_list_order'] ?>"><i
-                                          class="bi bi-pencil-square"></i></button>
+                                          class="bi bi-pencil"></i></button>
                                     <button class="btn btn-danger btn-sm me-1" data-bs-toggle="modal"
                                        data-bs-target="#ModalDelete<?php echo $row2['id_list_order'] ?>"><i
-                                          class="bi bi-trash2"></i>
+                                          class="bi bi-trash2"></i></button>
                                  </div>
                               </td>
                            </tr>
