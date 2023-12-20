@@ -289,9 +289,9 @@ while ($record = mysqli_fetch_array($query)) {
                      </tr>
                   </tbody>
                </table>
-               <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ModalTambah<?= $row['id'] ?>"><i
+               <button class="btn btn-bayar mb-2" data-bs-toggle="modal" data-bs-target="#ModalTambah<?= $row['id'] ?>"><i
                      class="bi bi-cash-stack"></i>
-                  Bayar</button>
+                  Bayar Item</button>
             </div>
          </div>
       </div>

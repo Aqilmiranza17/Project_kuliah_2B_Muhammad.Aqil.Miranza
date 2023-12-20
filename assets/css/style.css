@@ -68,3 +68,14 @@ margin-top: 6px;
    background-color: #a0ff93!important;
    box-shadow: 4px 4px;
 }
+
+.btn-bayar{
+   background-color: #7ef4e6!important;
+   border: 0;
+   border-radius: 10px;
+}
+
+.btn-bayar:hover{
+   background-color: #5FBDFF!important;
+   box-shadow: 4px 4px;
+}
