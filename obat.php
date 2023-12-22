@@ -26,7 +26,7 @@ FROM tb_kategori_obat");
 ?>
 
 <div class="col-lg-10 d-flex align-items-start justify-content-center mt-3 rounded-4">
-   <div class="card w-75 mb-3 rounded-4">
+   <div class="card mb-3 rounded-4">
       <div class="card-body">
          <h5 class="card-title">Daftar Obat</h5>
          <div class="row">

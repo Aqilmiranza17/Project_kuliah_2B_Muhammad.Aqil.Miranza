@@ -132,6 +132,7 @@ while ($record = mysqli_fetch_array($query)) {
 
 
 
+   <!-- table kasir total -->
    <div class="col-lg-8">
       <div class="card mb-3 border-0">
          <div class="card-body">
@@ -142,6 +143,7 @@ while ($record = mysqli_fetch_array($query)) {
                      <tr>
                         <th scope="col">Nama Obat</th>
                         <th scope="col">Kategori</th>
+                        <th scope="col">Jenis</th>
                         <th scope="col">Jumlah</th>
                         <th scope="col">Harga</th>
                         <th scope="col">Aksi</th>
@@ -255,6 +257,9 @@ while ($record = mysqli_fetch_array($query)) {
                                  <?= $row2['kategori_obat'] ?>
                               </td>
                               <td>
+                                 <?= $row2['jenis_obat'] ?>
+                              </td>
+                              <td>
                                  <?= $row2['jumlah'] ?>
                               </td>
                               <td>
@@ -280,7 +285,7 @@ while ($record = mysqli_fetch_array($query)) {
                      }
                      ?>
                      <tr>
-                        <td colspan="3" class="fw-bold">
+                        <td colspan="4" class="fw-bold">
                            Total Harga
                         </td>
                         <td class="fw-bold">
@@ -289,13 +294,122 @@ while ($record = mysqli_fetch_array($query)) {
                      </tr>
                   </tbody>
                </table>
-               <button class="btn btn-bayar mb-2" data-bs-toggle="modal" data-bs-target="#ModalTambah<?= $row['id'] ?>"><i
+               <button class="btn btn-bayar mb-2" data-bs-toggle="modal" data-bs-target="#bayar"><i
                      class="bi bi-cash-stack"></i>
                   Bayar Item</button>
             </div>
          </div>
       </div>
    </div>
+   <!-- end table kasir total -->
+
+   <!-- start Modal pembayaran-->
+   <?php
+                     $total = 0;
+                     $kueri = mysqli_query($conn, "SELECT * FROM tb_list_order");
+    while ($row = mysqli_fetch_array($kueri)) {
+       $id = $row['list_obat'];
+       $kueri2 = mysqli_query($conn, "SELECT * 
+                        FROM tb_daftar_obat 
+                        JOIN tb_golongan ON tb_golongan.id_golongan = tb_daftar_obat.golongan
+                        JOIN tb_jenis_obat ON tb_jenis_obat.id_jenis = tb_daftar_obat.jenis
+                        JOIN tb_kategori_obat ON tb_kategori_obat.id_kategori = tb_daftar_obat.kategori
+                        LEFT JOIN tb_list_order ON tb_list_order.list_obat = tb_daftar_obat.id WHERE id = $id");
+       while ($row2 = mysqli_fetch_array($kueri2)) {
+          ?>
+        <div class="modal fade" id="bayar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-fullscreen-md-down">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">pembayaran</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive mt-4">
+               <table class="table table-hover" id="kasir">
+                  <thead>
+                     <tr>
+                        <th scope="col">Nama Obat</th>
+                        <th scope="col">Kategori</th>
+                        <th scope="col">Jenis</th>
+                        <th scope="col">Jumlah</th>
+                        <th scope="col">Harga</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <?php
+                     $total = 0;
+                     $kueri = mysqli_query($conn, "SELECT * FROM tb_list_order");
+                     while ($row = mysqli_fetch_array($kueri)) {
+                        $id = $row['list_obat'];
+                        $kueri2 = mysqli_query($conn, "SELECT * 
+                        FROM tb_daftar_obat 
+                        JOIN tb_golongan ON tb_golongan.id_golongan = tb_daftar_obat.golongan
+                        JOIN tb_jenis_obat ON tb_jenis_obat.id_jenis = tb_daftar_obat.jenis
+                        JOIN tb_kategori_obat ON tb_kategori_obat.id_kategori = tb_daftar_obat.kategori
+                        LEFT JOIN tb_list_order ON tb_list_order.list_obat = tb_daftar_obat.id WHERE id = $id");
+                        while ($row2 = mysqli_fetch_array($kueri2)) {
+                           ?>
+                           <tr>
+                              <td>
+                                 <?= $row2['nama_obat'] ?>
+                              </td>
+                              <td>
+                                 <?= $row2['kategori_obat'] ?>
+                              </td>
+                              <td>
+                                 <?= $row2['jenis_obat'] ?>
+                              </td>
+                              <td>
+                                 <?= $row2['jumlah'] ?>
+                              </td>
+                              <td>
+                                 <?= number_format($row2['harga'] * $row2['jumlah'], 0, ',', '.') ?>
+                              </td>
+                              <!-- end table -->
+                           <?php
+                           $total += $row2['harga'] * $row2['jumlah'];
+                        }
+                     }
+                     ?>
+                     <tr>
+                        <td colspan="4" class="fw-bold">
+                           Total Harga
+                        </td>
+                        <td class="fw-bold">
+                           <?= number_format($total, 0, ',', '.') ?>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+                <form class="needs-validation" novalidate action="proses/proses_bayar.php" method="POST">
+                  <div class=" row">
+                    <div class="col-lg-12">
+                      <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="floatingInput" placeholder="Nominal Uang "
+                          name="uang" required>
+                        <label for="floatingInput">Nominal Uang</label>
+                        <div class="invalid-feedback">
+                          Masukkan Nominal Uang.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" name="bayar_validate" value="12345">Bayar</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+<?php
+       }
+    }
+?>
+        <!-- end Modal pembayaran-->
 
 </div>
 <!-- js for data tables function -->
