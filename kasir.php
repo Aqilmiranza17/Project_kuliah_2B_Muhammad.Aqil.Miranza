@@ -5,7 +5,7 @@ FROM tb_daftar_obat
 JOIN tb_golongan ON tb_golongan.id_golongan = tb_daftar_obat.golongan
 JOIN tb_jenis_obat ON tb_jenis_obat.id_jenis = tb_daftar_obat.jenis
 JOIN tb_kategori_obat ON tb_kategori_obat.id_kategori = tb_daftar_obat.kategori
-LEFT JOIN tb_list_order ON tb_list_order.list_obat = tb_daftar_obat.id
+LEFT JOIN tb_cart_item ON tb_cart_item.id_obat = tb_daftar_obat.id
 ORDER BY nama_obat DESC
 ");
 
@@ -14,12 +14,39 @@ while ($record = mysqli_fetch_array($query)) {
 }
 ?>
 
-<!-- <div class="container">
-</div> -->
+
 <div class="col-lg-10 m-auto mt-3 d-flex flex-column justify-content-center align-items-center">
    <div class="col-lg-8">
       <div class="card mb-3 border-0">
          <div class="card-body">
+
+
+            <script>
+               // Mendapatkan seluruh URL
+               var url = window.location.href;
+
+               // Mendapatkan parameter GET berdasarkan nama
+               function getParameterByName(name, url) {
+                  if (!url) {
+                     url = window.location.href;
+                  }
+                  name = name.replace(/[\[\]]/g, "\\$&");
+                  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                     results = regex.exec(url);
+                  if (!results) return null;
+                  if (!results[2]) return '';
+                  return decodeURIComponent(results[2].replace(/\+/g, " "));
+               }
+
+               // Contoh penggunaan
+               var kembalian = getParameterByName('kembalian');
+
+               if (kembalian !== null) {
+                  alert("Pembayaran berhasil \n kembalian Anda: " + kembalian);
+               }
+            </script>
+
+
             <h5 class="card-title">Kasir Apotek</h5>
             <?php
             if (empty($result)) {
@@ -152,71 +179,20 @@ while ($record = mysqli_fetch_array($query)) {
                   <tbody>
                      <?php
                      $total = 0;
-                     $kueri = mysqli_query($conn, "SELECT * FROM tb_list_order");
+                     $kueri = mysqli_query($conn, "SELECT * FROM tb_cart_item");
                      while ($row = mysqli_fetch_array($kueri)) {
-                        $id = $row['list_obat'];
+                        $id = $row['id_obat'];
                         $kueri2 = mysqli_query($conn, "SELECT * 
                         FROM tb_daftar_obat 
                         JOIN tb_golongan ON tb_golongan.id_golongan = tb_daftar_obat.golongan
                         JOIN tb_jenis_obat ON tb_jenis_obat.id_jenis = tb_daftar_obat.jenis
                         JOIN tb_kategori_obat ON tb_kategori_obat.id_kategori = tb_daftar_obat.kategori
-                        LEFT JOIN tb_list_order ON tb_list_order.list_obat = tb_daftar_obat.id WHERE id = $id");
+                        LEFT JOIN tb_cart_item ON tb_cart_item.id_item = tb_daftar_obat.id WHERE id = $id");
                         while ($row2 = mysqli_fetch_array($kueri2)) {
                            ?>
 
-                           <!-- Modal edit menu-->
-                           <div class="modal fade" id="ModalEdit<?php echo $row2['id_list_order'] ?>" tabindex="-1"
-                              aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-lg modal-fullscreen-md-down">
-                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                       <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Item
-                                       </h1>
-                                       <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                          aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                       <form class="needs-validation" novalidate action="proses/proses_edit_list_item.php"
-                                          method="POST">
-                                          <input type="hidden" name="id_list_order" value="<?= $row['id_list_order'] ?>">
-                                          <input type="hidden" name="idobat" value="<?php echo $row2['list_obat'] ?>">
-                                                <div class=" row">
-                                                   <div class="col-lg-6">
-                                                      <div class="form-floating mb-3">
-                                                         <input type="text" class="form-control" id="floatingInput"
-                                                            placeholder="nama obat" name="idobat"
-                                                            value="<?= $row2['nama_obat'] ?>" disabled>
-                                                   <label for="floatingInput">Nama obat</label>
-                                                   <div class="invalid-feedback">
-                                                      Masukkan nama obat
-                                                   </div>
-                                                </div>
-                                             </div>
-                                             <div class="col-lg-6">
-                                                <div class="form-floating mb-3">
-                                                   <input type="number" class="form-control" id="floatingInput"
-                                                      placeholder="Jumlah Obat" name="jumlah" required>
-                                                   <label for="floatingInput">Jumlah</label>
-                                                   <div class="invalid-feedback">
-                                                      Masukkan Jumlah
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                       <button type="submit" class="btn btn-primary" name="edit_list_item" value="12345">Save
-                                          changes</button>
-                                       </form>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- end modal edit menu-->
-
                            <!-- modal delete -->
-                           <div class="modal fade" id="ModalDelete<?php echo $row2['id_list_order'] ?>" tabindex="-1"
+                           <div class="modal fade" id="ModalDelete<?php echo $row2['id_item'] ?>" tabindex="-1"
                               aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog modal-md modal-fullscreen-md-down">
                                  <div class="modal-content">
@@ -228,9 +204,8 @@ while ($record = mysqli_fetch_array($query)) {
                                     <div class="modal-body">
                                        <form class="needs-validation" novalidate action="proses/proses_delete_list_item.php"
                                           method="POST">
-                                          <input type="hidden" name="id_list_order"
-                                             value="<?php echo $row2['id_list_order'] ?>">
-                                          <input type="hidden" name="idobat" value="<?php echo $row2['list_obat'] ?>">
+                                          <input type="hidden" name="id_item" value="<?php echo $row['id_item'] ?>">
+                                          <input type="hidden" name="id_obat" value="<?php echo $row['id_obat'] ?>">
                                           <div class="col-lg-12">
                                              Apakah anda ingin menghapus Item
                                              <b>
@@ -260,27 +235,24 @@ while ($record = mysqli_fetch_array($query)) {
                                  <?= $row2['jenis_obat'] ?>
                               </td>
                               <td>
-                                 <?= $row2['jumlah'] ?>
+                                 <?= $row['jumlah'] ?>
                               </td>
                               <td>
-                                 <?= number_format($row2['harga'] * $row2['jumlah'], 0, ',', '.') ?>
+                                 <?= number_format($row2['harga'] * $row['jumlah'], 0, ',', '.') ?>
                               </td>
                               <!-- end table -->
 
                               <!-- tombol aksi -->
                               <td>
                                  <div class="d-flex">
-                                    <button class="btn btn-warning btn-sm me-1" data-bs-toggle="modal"
-                                       data-bs-target="#ModalEdit<?php echo $row2['id_list_order'] ?>"><i
-                                          class="bi bi-pencil"></i></button>
                                     <button class="btn btn-danger btn-sm me-1" data-bs-toggle="modal"
-                                       data-bs-target="#ModalDelete<?php echo $row2['id_list_order'] ?>"><i
+                                       data-bs-target="#ModalDelete<?php echo $row2['id_item'] ?>"><i
                                           class="bi bi-trash2"></i></button>
                                  </div>
                               </td>
                            </tr>
                            <?php
-                           $total += $row2['harga'] * $row2['jumlah'];
+                           $total += $row2['harga'] * $row['jumlah'];
                         }
                      }
                      ?>
@@ -294,7 +266,7 @@ while ($record = mysqli_fetch_array($query)) {
                      </tr>
                   </tbody>
                </table>
-               <button class="btn btn-bayar mb-2" data-bs-toggle="modal" data-bs-target="#bayar"><i
+               <button class="btn btn-bayar mb-2" data-bs-toggle="modal" data-bs-target="#ModalBayar"><i
                      class="bi bi-cash-stack"></i>
                   Bayar Item</button>
             </div>
@@ -304,116 +276,46 @@ while ($record = mysqli_fetch_array($query)) {
    <!-- end table kasir total -->
 
    <!-- start Modal pembayaran-->
-   <?php
-                     $total = 0;
-                     $kueri = mysqli_query($conn, "SELECT * FROM tb_list_order");
-    while ($row = mysqli_fetch_array($kueri)) {
-       $id = $row['list_obat'];
-       $kueri2 = mysqli_query($conn, "SELECT * 
-                        FROM tb_daftar_obat 
-                        JOIN tb_golongan ON tb_golongan.id_golongan = tb_daftar_obat.golongan
-                        JOIN tb_jenis_obat ON tb_jenis_obat.id_jenis = tb_daftar_obat.jenis
-                        JOIN tb_kategori_obat ON tb_kategori_obat.id_kategori = tb_daftar_obat.kategori
-                        LEFT JOIN tb_list_order ON tb_list_order.list_obat = tb_daftar_obat.id WHERE id = $id");
-       while ($row2 = mysqli_fetch_array($kueri2)) {
-          ?>
-        <div class="modal fade" id="bayar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg modal-fullscreen-md-down">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">pembayaran</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="table-responsive mt-4">
-               <table class="table table-hover" id="kasir">
-                  <thead>
-                     <tr>
-                        <th scope="col">Nama Obat</th>
-                        <th scope="col">Kategori</th>
-                        <th scope="col">Jenis</th>
-                        <th scope="col">Jumlah</th>
-                        <th scope="col">Harga</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <?php
-                     $total = 0;
-                     $kueri = mysqli_query($conn, "SELECT * FROM tb_list_order");
-                     while ($row = mysqli_fetch_array($kueri)) {
-                        $id = $row['list_obat'];
-                        $kueri2 = mysqli_query($conn, "SELECT * 
-                        FROM tb_daftar_obat 
-                        JOIN tb_golongan ON tb_golongan.id_golongan = tb_daftar_obat.golongan
-                        JOIN tb_jenis_obat ON tb_jenis_obat.id_jenis = tb_daftar_obat.jenis
-                        JOIN tb_kategori_obat ON tb_kategori_obat.id_kategori = tb_daftar_obat.kategori
-                        LEFT JOIN tb_list_order ON tb_list_order.list_obat = tb_daftar_obat.id WHERE id = $id");
-                        while ($row2 = mysqli_fetch_array($kueri2)) {
-                           ?>
-                           <tr>
-                              <td>
-                                 <?= $row2['nama_obat'] ?>
-                              </td>
-                              <td>
-                                 <?= $row2['kategori_obat'] ?>
-                              </td>
-                              <td>
-                                 <?= $row2['jenis_obat'] ?>
-                              </td>
-                              <td>
-                                 <?= $row2['jumlah'] ?>
-                              </td>
-                              <td>
-                                 <?= number_format($row2['harga'] * $row2['jumlah'], 0, ',', '.') ?>
-                              </td>
-                              <!-- end table -->
-                           <?php
-                           $total += $row2['harga'] * $row2['jumlah'];
-                        }
-                     }
-                     ?>
-                     <tr>
-                        <td colspan="4" class="fw-bold">
-                           Total Harga
-                        </td>
-                        <td class="fw-bold">
-                           <?= number_format($total, 0, ',', '.') ?>
-                        </td>
-                     </tr>
-                  </tbody>
-               </table>
+   <div class="modal fade" id="ModalBayar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-fullscreen-md-down">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h1 class="modal-title fs-5" id="exampleModalLabel">pembayaran</h1>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-                <form class="needs-validation" novalidate action="proses/proses_bayar.php" method="POST">
+            <div class="modal-body">
+               <div class="col px-2">
+                  <p>
+                     <?php echo "Rp." . number_format($total, 0, ',', '.') ?>
+                  </p>
+               </div>
+               <form action="proses/proses_pemesanan.php" method="GET">
                   <div class=" row">
-                    <div class="col-lg-12">
-                      <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="floatingInput" placeholder="Nominal Uang "
-                          name="uang" required>
-                        <label for="floatingInput">Nominal Uang</label>
-                        <div class="invalid-feedback">
-                          Masukkan Nominal Uang.
+                     <div class="col-lg-12">
+                        <div class="form-floating mb-3">
+                           <input type="number" min="<?php echo $total ?>" class="form-control" id="floatingInput"
+                              placeholder="Nominal Uang " name="uang" required>
+                           <label for="floatingInput">Nominal Uang</label>
+                           <div class="invalid-feedback">
+                              Masukkan Nominal Uang.
+                           </div>
                         </div>
-                      </div>
-                    </div>
+                     </div>
                   </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="bayar_validate" value="12345">Bayar</button>
-                </form>
-              </div>
+                  <button type="submit" class="btn btn-primary" name="bayar_validate" value="12345">Bayar</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+               </form>
             </div>
-          </div>
-        </div>
-<?php
-       }
-    }
-?>
-        <!-- end Modal pembayaran-->
-
+         </div>
+      </div>
+   </div>
+   <!-- end Modal pembayaran-->
 </div>
-<!-- js for data tables function -->
 
+
+
+
+<!-- js for data tables function -->
 <script>
    $(document).ready(function () {
       $('#kasir').DataTable({

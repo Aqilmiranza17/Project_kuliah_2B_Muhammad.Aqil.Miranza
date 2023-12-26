@@ -10,6 +10,7 @@ if (!empty($_POST["submit_validate"])) {
    $query = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username' && password = '$password'");
    $hasil = mysqli_fetch_array($query);
    if ($hasil) {
+      $_SESSION['iduser'] = $hasil['id'];
       $_SESSION['username_user'] = $username;
       $_SESSION['level_user'] = $hasil['level'];
       // $_SESSION['id_user'] = $hasil['id'];

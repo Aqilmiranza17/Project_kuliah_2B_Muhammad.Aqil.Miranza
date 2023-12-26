@@ -4,14 +4,14 @@
          data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">Toggle offcanvas</button>
 
       <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasResponsive"
-         aria-labelledby="offcanvasResponsiveLabel">
+         aria-labelledby="offcanvasResponsiveLabel" style="height:100%; position:fixed">
          <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasResponsiveLabel"><i class="bi bi-menu-button-wide"></i> Menu</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive"
                aria-label="Close"></button>
          </div>
-         <div class="offcanvas-body">
-            <div class="d-flex flex-column flex-shrink-0 px-3 bg-body-tertiary" style="width: 280px; height: 90.5vh;">
+         <div class="offcanvas-body" style="height:100%">
+            <div class="d-flex flex-column flex-shrink-0 px-3 bg-body-tertiary" style="width: 280px; ">
                <ul class="nav nav-pills flex-column mb-auto fs-6 ">
                   <li>
                      <a href="home"

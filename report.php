@@ -2,10 +2,114 @@
    <div class="card w-75 mb-3 border-0">
       <div class="card-body">
          <h5 class="card-title">Report</h5>
-         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae nihil possimus
-            quaerat reiciendis ea esse sint dolore expedita inventore sit velit autem, ab porro dolorem ipsum.
-            Praesentium necessitatibus sint totam?</p>
-         <a href="#" class="btn btn-primary">Button</a>
+         <table class="table table-responsive">
+            <thead>
+               <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Kode Order</th>
+                  <th scope="col">Waktu Order</th>
+                  <th scope="col">Waktu Bayar</th>
+                  <th scope="col">Total Harga</th>
+                  <th scope="col">Pelayan</th>
+                  <th scope="col">Aksi</th>
+               </tr>
+            </thead>
+            <tbody>
+               <?php
+               $i = 1;
+               $kueri = mysqli_query($conn, "SELECT * FROM tb_order");
+               while ($row = mysqli_fetch_array($kueri)) {
+                  ?>
+                  <tr>
+                     <td>
+                        <?php echo $i++; ?>
+                     </td>
+                     <td>
+                        <?php echo $row['id_order'] ?>
+                     </td>
+                     <td>
+                        <?php echo $row['id_user'] ?>
+                     </td>
+                     <td>
+                        <?php echo $row['nominal_uang'] ?>
+                     </td>
+                     <td>
+                        <?php echo $row['total'] ?>
+                     </td>
+                     <td>
+                        <?php echo $row['waktu_order'] ?>
+                     </td>
+                     <td>
+                        <div class="d-flex">
+                           <button class="btn btn-info btn-sm me-1" data-bs-toggle="modal"
+                              data-bs-target="#item<?php echo $row['id_order'] ?>"><i
+                                 class="bi bi-eyeglasses"></i></button>
+                        </div>
+                     </td>
+                  </tr>
+               <?php } ?>
+            </tbody>
+         </table>
+
+
+         <?php $kueri1 = mysqli_query($conn, "SELECT * FROM tb_order");
+         while ($row2 = mysqli_fetch_array($kueri1)) {
+            ?>
+            <!-- modal view item -->
+            <div class="modal fade" id="item<?php echo $row2['id_order'] ?>" tabindex="-1"
+               aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     </div>
+                     <div class="modal-body">
+                        <table class="table">
+                           <thead>
+                              <tr>
+                                 <th scope="col">Nama Obat</th>
+                                 <th scope="col">Jumlah</th>
+                                 <th scope="col">Total Harga</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <?php
+                              $id_order = $row2['id_order'];
+                              $kueri3 = mysqli_query($conn, "SELECT * FROM tb_order_item WHERE id_order='$id_order'");
+                              while ($row3 = mysqli_fetch_array($kueri3)) {
+                                 ?>
+                                 <?php
+                                 $id_obat = $row3['id_obat'];
+                                 $kueri4 = mysqli_query($conn, "SELECT * FROM tb_daftar_obat WHERE id='$id_obat'");
+                                 $row4 = mysqli_fetch_array($kueri4);
+                                 $total_harga = $row4['harga'] * $row3['jumlah'];
+                                 ?>
+                                 <tr>
+                                    <td>
+                                       <?php echo $row4['nama_obat'] ?>
+                                    </td>
+                                    <td>
+                                       <?php echo $row3['jumlah'] ?>
+                                    </td>
+                                    <td>
+                                       <?php echo $total_harga ?>
+                                    </td>
+                                 </tr>
+                                 <?php
+                              }
+                              ?>
+                           </tbody>
+                        </table>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- end modal view item -->
+         <?php } ?>
       </div>
    </div>
 </div>
