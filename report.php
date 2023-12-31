@@ -28,7 +28,7 @@
                         <?php echo $row['id_order'] ?>
                      </td>
                      <td>
-                        <?php echo $row['id_user'] ?>
+                        <?php echo $row['waktu_order'] ?>
                      </td>
                      <td>
                         <?php echo $row['nominal_uang'] ?>
@@ -37,7 +37,7 @@
                         <?php echo $row['total'] ?>
                      </td>
                      <td>
-                        <?php echo $row['waktu_order'] ?>
+                        <?php echo $row['id_user'] ?>
                      </td>
                      <td>
                         <div class="d-flex">

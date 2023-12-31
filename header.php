@@ -2,11 +2,12 @@
 include("proses/connect.php");
 $query = mysqli_query($conn, "SELECT * FROM tb_user WHERE username='$_SESSION[username_user]'");
 $records = mysqli_fetch_array($query);
+$isModalOpen = false;
 ?>
 
-<header class="sticky-lg-top">
+<header class="<?= $isModalOpen ? 'sticky-lg-top' : '' ?>">
    <nav class=" navbar navbar-expand-lg bg-body-tertiary d-flex">
-      <div class="container-fluid py-2">
+      <div class="container-fluid">
          <a class="h4 navbar-brand mx-5 headerbutton" href="home">
             <div class="d-flex align-items-center justify-content-center">
                <i class="bi bi-prescription2 m-2"></i>

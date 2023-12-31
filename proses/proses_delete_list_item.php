@@ -20,7 +20,7 @@ if (!empty($_POST['hapus_item_kasir'])) {
 
    $query = mysqli_query($conn, "DELETE FROM tb_cart_item WHERE id_item=$id_item");
    if ($query) {
-      $message = "<script>alert('item kasir berhasil dihapus');
+      $message = "<script>
       window.location='../kasir'</script>";
    } else {
       $message = "<script>alert(''item kasir gagal dihapus');
