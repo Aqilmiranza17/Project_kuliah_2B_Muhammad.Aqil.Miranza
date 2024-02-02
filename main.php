@@ -42,7 +42,6 @@ $hasil = mysqli_fetch_array($query);
 </head>
 
 <body>
-
    <!-- header -->
    <?php include "header.php"; ?>
    <!-- end header -->
@@ -72,8 +71,8 @@ $hasil = mysqli_fetch_array($query);
       $(document).ready(function () {
          $('#example').DataTable({
             lengthMenu: [
-               [5, 15, 50, -1],
-               [5, 15, 50, 'All']
+               [5, 10, 50, -1],
+               [5, 10, 50, 'All']
             ]
          });
       });

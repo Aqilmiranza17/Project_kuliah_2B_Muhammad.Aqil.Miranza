@@ -22,8 +22,7 @@ if (!empty($_POST['input_list_item'])) {
          $stok = $row2['stok'];
          $stok_sekarang = $stok - $jumlah;
          $query3 = mysqli_query($conn, "UPDATE tb_daftar_obat SET stok = $stok_sekarang WHERE id= $idobat");
-         $message = "<script>alert('data berhasil dimasukkan');
-         window.location='../kasir'</script>";
+         $message = "<script>window.location='../kasir'</script>";
       } else {
          $message = "<script>alert('data gagal dimasukkan');
          window.location='../kasir'</script>";

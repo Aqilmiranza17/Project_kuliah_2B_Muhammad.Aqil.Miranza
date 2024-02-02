@@ -1,14 +1,14 @@
 <div class="col-lg-10 d-flex align-items-start justify-content-center mt-3">
    <div class="card w-75 mb-3 border-0">
-      <div class="card-body">
+      <div class="card-body" style="">
          <h5 class="card-title">Report</h5>
-         <table class="table table-responsive">
+         <table class="table table-responsive" id="report">
             <thead>
                <tr>
                   <th scope="col">No</th>
                   <th scope="col">Kode Order</th>
                   <th scope="col">Waktu Order</th>
-                  <th scope="col">Waktu Bayar</th>
+                  <th scope="col">Total Bayar</th>
                   <th scope="col">Total Harga</th>
                   <th scope="col">Pelayan</th>
                   <th scope="col">Aksi</th>
@@ -31,10 +31,10 @@
                         <?php echo $row['waktu_order'] ?>
                      </td>
                      <td>
-                        <?php echo $row['nominal_uang'] ?>
+                        <?php echo number_format($row["nominal_uang"], 0, ',', '.') ?>
                      </td>
                      <td>
-                        <?php echo $row['total'] ?>
+                        <?php echo number_format($row["total"], 0, ',', '.') ?>
                      </td>
                      <td>
                         <?php echo $row['id_user'] ?>
@@ -61,7 +61,7 @@
                <div class="modal-dialog">
                   <div class="modal-content">
                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Report</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                      </div>
                      <div class="modal-body">
@@ -93,7 +93,7 @@
                                        <?php echo $row3['jumlah'] ?>
                                     </td>
                                     <td>
-                                       <?php echo $total_harga ?>
+                                       <?php echo "Rp" . number_format($total_harga, 0, ',', '.') ?>
                                     </td>
                                  </tr>
                                  <?php
@@ -113,3 +113,17 @@
       </div>
    </div>
 </div>
+
+<!-- js for data tables function -->
+<script>
+   $(document).ready(function () {
+      $('#report').DataTable({
+         searching: false
+         lengthMenu: [
+            [5, 10, 30, -1],
+            [5, 10, 30, 'All']
+         ]
+      });
+   });
+</script>
+<!-- js for data tables function -->

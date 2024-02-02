@@ -6,15 +6,17 @@ body, html{
    scroll-behavior: smooth;
 }
 
-header{
+.header{
    font-family: 'Poppins', sans-serif;
-   /* position: fixed; */
+   width: 100%;
+   position: sticky;
+   top: 0;
 }
 
 .sidebar{
    height: 100%;
    font-family: 'Poppins', sans-serif;
-
+   position:fixed;
 }
 
 .sidebar .nav-link{

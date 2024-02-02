@@ -10,7 +10,7 @@ function generateRandomInteger($start, $end)
 $randomNumber = generateRandomInteger(1, 1000000000000000000);
 
 $id_order = $randomNumber;
-$id_user = $_SESSION['iduser'];
+$id_user = $_SESSION['username_user'];
 $nominal_uang = $uang;
 $waktu_order = date("Y-m-d H:i:s");
 
@@ -27,7 +27,7 @@ while ($row = mysqli_fetch_array($query2)) {
 
    $query3 = mysqli_query($conn, "INSERT INTO tb_order_item(id_item, id_order, id_obat, jumlah, total_harga) VALUES($id_item, $id_order, $id_obat, $jumlah, $total_harga)");
 }
-$query = mysqli_query($conn, "INSERT INTO tb_order (id_order, id_user, nominal_uang, total, waktu_order) VALUES($id_order, $id_user, $nominal_uang, $total, '$waktu_order')");
+$query = mysqli_query($conn, "INSERT INTO tb_order (id_order, id_user, nominal_uang, total, waktu_order) VALUES($id_order, '$id_user', $nominal_uang, $total, '$waktu_order')");
 
 $query4 = mysqli_query($conn, "DELETE FROM tb_cart_item");
 if ($query) {

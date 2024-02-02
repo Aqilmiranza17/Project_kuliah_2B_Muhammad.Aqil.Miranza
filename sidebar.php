@@ -11,7 +11,7 @@
                aria-label="Close"></button>
          </div>
          <div class="offcanvas-body" style="height:100%">
-            <div class="d-flex flex-column flex-shrink-0 px-3 bg-body-tertiary" style="width: 280px; ">
+            <div class="d-flex flex-column px-3 bg-body-tertiary" style="width: 280px; ">
                <ul class="nav nav-pills flex-column mb-auto fs-6 ">
                   <li>
                      <a href="home"

@@ -286,7 +286,7 @@ while ($record = mysqli_fetch_array($query)) {
             <div class="modal-body">
                <div class="col px-2">
                   <p>
-                     <?php echo "Rp." . number_format($total, 0, ',', '.') ?>
+                     <?php echo "Rp" . number_format($total, 0, ',', '.') ?>
                   </p>
                </div>
                <form action="proses/proses_pemesanan.php" method="GET">
